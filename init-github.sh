@@ -13,8 +13,8 @@ BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-echo -e "${BLUE}🚀 Initializing CTExternalDisk Auto-Mount System for GitHub${NC}"
-echo "============================================================"
+echo -e "${BLUE}🚀 Initializing CT External Drive Manager for GitHub${NC}"
+echo "=================================================="
 echo ""
 
 # Check if git is available
@@ -45,7 +45,7 @@ if git diff --cached --quiet; then
     echo -e "${YELLOW}⚠️  No changes to commit${NC}"
 else
     echo "💾 Creating initial commit..."
-    git commit -m "Initial commit: CTExternalDisk Auto-Mount System v2.0
+    git commit -m "Initial commit: CT External Drive Manager v2.0
 
 - Complete hibernation-safe auto-mount system
 - Automatic ownership repair and permission management
@@ -82,13 +82,13 @@ echo "================================="
 echo ""
 echo "1. Create a new repository on GitHub:"
 echo "   - Go to https://github.com/new"
-echo "   - Repository name: ctexternaldisk-automount"
-echo "   - Description: Hibernation-safe auto-mount system for external drives on macOS"
+echo "   - Repository name: ct-external-drive-manager"
+echo "   - Description: Smart external drive management for macOS by CT"
 echo "   - Make it public"
 echo "   - Don't initialize with README (we already have one)"
 echo ""
 echo "2. Add the remote repository:"
-echo "   git remote add origin https://github.com/YOUR_USERNAME/ctexternaldisk-automount.git"
+echo "   git remote add origin https://github.com/YOUR_USERNAME/ct-external-drive-manager.git"
 echo ""
 echo "3. Push to GitHub:"
 echo "   git branch -M main"

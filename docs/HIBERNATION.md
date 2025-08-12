@@ -1,6 +1,6 @@
 # Hibernation-Safe System Guide
 
-The CTExternalDisk Auto-Mount System includes advanced hibernation-safe features that ensure your external drive is properly handled during sleep/wake cycles.
+CT External Drive Manager includes advanced hibernation-safe features that ensure your external drive is properly handled during sleep/wake cycles.
 
 ## Overview
 

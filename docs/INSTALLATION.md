@@ -1,6 +1,6 @@
 # Installation Guide
 
-This guide provides detailed instructions for installing the CTExternalDisk Auto-Mount System on macOS.
+This guide provides detailed instructions for installing CT External Drive Manager on macOS.
 
 ## Prerequisites
 
@@ -15,8 +15,8 @@ This guide provides detailed instructions for installing the CTExternalDisk Auto
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/ctexternaldisk-automount.git
-cd ctexternaldisk-automount
+git clone https://github.com/yourusername/ct-external-drive-manager.git
+cd ct-external-drive-manager
 
 # Run the installer
 ./install.sh

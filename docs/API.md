@@ -1,6 +1,6 @@
 # API Reference
 
-This document provides a complete reference for all command-line tools and their options.
+This document provides a complete reference for all command-line tools and their options in CT External Drive Manager.
 
 ## Core Commands
 

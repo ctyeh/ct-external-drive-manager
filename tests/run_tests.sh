@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# CTExternalDisk Auto-Mount System Test Runner
+# CT External Drive Manager Test Runner
 # Runs all test suites and reports results
 
 set -e
@@ -137,8 +137,8 @@ cleanup_test_env() {
 
 # Main function
 main() {
-    echo "🚀 CTExternalDisk Auto-Mount System Test Suite"
-    echo "=============================================="
+    echo "🚀 CT External Drive Manager Test Suite"
+    echo "======================================="
     echo ""
     
     # Setup

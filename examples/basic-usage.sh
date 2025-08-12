@@ -3,18 +3,18 @@
 # Example: Basic Usage of CTExternalDisk Auto-Mount System
 # This script demonstrates common usage patterns
 
-echo "🚀 CTExternalDisk Auto-Mount System - Basic Usage Examples"
-echo "=========================================================="
+echo "🚀 CT External Drive Manager - Basic Usage Examples"
+echo "=================================================="
 echo ""
 
 # Check if system is installed
 if ! command -v ctdisk >/dev/null 2>&1; then
-    echo "❌ CTExternalDisk system not found in PATH"
+    echo "❌ CT External Drive Manager not found in PATH"
     echo "Please install the system first: ./install.sh"
     exit 1
 fi
 
-echo "✅ CTExternalDisk system found"
+echo "✅ CT External Drive Manager found"
 echo ""
 
 # Example 1: Check system status

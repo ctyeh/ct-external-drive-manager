@@ -1,6 +1,6 @@
 # Troubleshooting Guide
 
-This guide helps you diagnose and resolve common issues with the CTExternalDisk Auto-Mount System.
+This guide helps you diagnose and resolve common issues with CT External Drive Manager.
 
 ## Quick Diagnostics
 

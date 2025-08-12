@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# CTExternalDisk Auto-Mount System Installer
+# CT External Drive Manager Installer
 # Installs the hibernation-safe auto-mount system for external drives on macOS
 
 set -e
@@ -169,8 +169,8 @@ setup_path() {
 
 # Main installation function
 main() {
-    echo "🚀 CTExternalDisk Auto-Mount System Installer"
-    echo "=============================================="
+    echo "🚀 CT External Drive Manager Installer"
+    echo "======================================"
     echo ""
     
     check_macos

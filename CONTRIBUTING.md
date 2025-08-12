@@ -1,6 +1,6 @@
-# Contributing to CTExternalDisk Auto-Mount System
+# Contributing to CT External Drive Manager
 
-Thank you for your interest in contributing to the CTExternalDisk Auto-Mount System! This document provides guidelines for contributing to the project.
+Thank you for your interest in contributing to CT External Drive Manager! This document provides guidelines for contributing to the project.
 
 ## Code of Conduct
 
@@ -41,8 +41,8 @@ We welcome feature suggestions! Please:
 
 1. **Fork the repository**
    ```bash
-   git clone https://github.com/yourusername/ctexternaldisk-automount.git
-   cd ctexternaldisk-automount
+   git clone https://github.com/yourusername/ct-external-drive-manager.git
+   cd ct-external-drive-manager
    ```
 
 2. **Create a development branch**
@@ -282,7 +282,7 @@ All contributions go through code review:
 Understanding the project structure helps with contributions:
 
 ```
-ctexternaldisk-automount/
+ct-external-drive-manager/
 ├── bin/                    # Executable scripts
 ├── config/                 # Configuration files
 ├── docs/                   # Documentation
@@ -359,4 +359,4 @@ tail -f ~/.local/log/ctexternaldisk-mount.log
 launchctl list | grep ctexternaldisk
 ```
 
-Thank you for contributing to the CTExternalDisk Auto-Mount System! Your contributions help make external drive management seamless for the macOS community.
+Thank you for contributing to CT External Drive Manager! Your contributions help make external drive management seamless for the macOS community.

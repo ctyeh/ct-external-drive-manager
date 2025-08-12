@@ -1,8 +1,10 @@
-# CTExternalDisk Auto-Mount System
+# CT External Drive Manager
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![macOS](https://img.shields.io/badge/macOS-10.15+-blue.svg)](https://www.apple.com/macos/)
 [![Shell](https://img.shields.io/badge/Shell-Bash-green.svg)](https://www.gnu.org/software/bash/)
+
+**Smart external drive management for macOS by CT**
 
 A comprehensive, hibernation-safe auto-mount system for external drives on macOS. This system provides fully automated mounting, hibernation handling, ownership management, and seamless integration with macOS services.
 
@@ -44,8 +46,8 @@ A comprehensive, hibernation-safe auto-mount system for external drives on macOS
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/ctexternaldisk-automount.git
-cd ctexternaldisk-automount
+git clone https://github.com/yourusername/ct-external-drive-manager.git
+cd ct-external-drive-manager
 
 # Run the installation script
 ./install.sh
@@ -191,8 +193,8 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ```bash
 # Fork and clone the repository
-git clone https://github.com/yourusername/ctexternaldisk-automount.git
-cd ctexternaldisk-automount
+git clone https://github.com/yourusername/ct-external-drive-manager.git
+cd ct-external-drive-manager
 
 # Install development dependencies
 ./dev/setup.sh
@@ -218,15 +220,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- Built with ❤️ for the macOS community
+- Built with ❤️ by CT for the macOS community
 - Inspired by the need for reliable external drive management
 - Thanks to all contributors and testers
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/ctexternaldisk-automount/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/ctexternaldisk-automount/discussions)
-- **Documentation**: [Wiki](https://github.com/yourusername/ctexternaldisk-automount/wiki)
+- **Issues**: [GitHub Issues](https://github.com/yourusername/ct-external-drive-manager/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/yourusername/ct-external-drive-manager/discussions)
+- **Documentation**: [Wiki](https://github.com/yourusername/ct-external-drive-manager/wiki)
 
 ## 🗺️ Roadmap
 
@@ -239,4 +241,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Made with ❤️ for seamless macOS external drive management**
+**CT External Drive Manager - Smart external drive management for macOS** ✨
