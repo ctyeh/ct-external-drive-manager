@@ -1,0 +1,118 @@
+#!/bin/bash
+
+# CTExternalDisk Auto-Mount Setup Script (Enhanced)
+
+PLIST_FILE="$HOME/Library/LaunchAgents/com.user.ctexternaldisk.automount.plist"
+BOOT_PLIST_FILE="$HOME/Library/LaunchAgents/com.user.ctexternaldisk.bootmount.plist"
+SERVICE_NAME="com.user.ctexternaldisk.automount"
+BOOT_SERVICE_NAME="com.user.ctexternaldisk.bootmount"
+
+case "$1" in
+    enable|start)
+        echo "🚀 Enabling CTExternalDisk auto-mount services..."
+        
+        # Enable main auto-mount service
+        launchctl load "$PLIST_FILE" 2>/dev/null
+        launchctl start "$SERVICE_NAME" 2>/dev/null
+        
+        # Enable boot-time mount service
+        launchctl load "$BOOT_PLIST_FILE" 2>/dev/null
+        
+        echo "✅ Auto-mount services enabled"
+        echo "💡 The disk will be automatically mounted when connected"
+        echo "🔄 Enhanced for hibernation and restart scenarios"
+        ;;
+    disable|stop)
+        echo "🛑 Disabling CTExternalDisk auto-mount services..."
+        
+        # Disable main service
+        launchctl stop "$SERVICE_NAME" 2>/dev/null
+        launchctl unload "$PLIST_FILE" 2>/dev/null
+        
+        # Disable boot service
+        launchctl unload "$BOOT_PLIST_FILE" 2>/dev/null
+        
+        echo "✅ Auto-mount services disabled"
+        ;;
+    status)
+        echo "CTExternalDisk Auto-Mount Service Status:"
+        
+        # Check main service
+        if launchctl list | grep -q "$SERVICE_NAME"; then
+            echo "✅ Main service is running"
+        else
+            echo "❌ Main service is not running"
+        fi
+        
+        # Check boot service
+        if launchctl list | grep -q "$BOOT_SERVICE_NAME"; then
+            echo "✅ Boot service is loaded"
+        else
+            echo "❌ Boot service is not loaded"
+        fi
+        
+        echo ""
+        echo "Recent logs:"
+        tail -5 "$HOME/.local/log/ctexternaldisk-mount.log" 2>/dev/null || echo "No logs yet"
+        ;;
+    logs)
+        echo "📋 CTExternalDisk Auto-Mount Logs:"
+        echo "--- Mount Log ---"
+        cat "$HOME/.local/log/ctexternaldisk-mount.log" 2>/dev/null || echo "No mount logs"
+        echo ""
+        echo "--- Error Log ---"
+        cat "$HOME/.local/log/ctexternaldisk-mount.error.log" 2>/dev/null || echo "No error logs"
+        ;;
+    test)
+        echo "🧪 Testing auto-mount script..."
+        "$HOME/.local/bin/mount-ctexternaldisk.sh"
+        echo "✅ Test completed. Check logs with: ctdisk-setup logs"
+        ;;
+    test-boot)
+        echo "🧪 Testing boot-time mount script..."
+        "$HOME/.local/bin/ctdisk-boot-mount.sh"
+        echo "✅ Boot test completed. Check logs with: ctdisk-setup logs"
+        ;;
+    restart)
+        echo "🔄 Restarting CTExternalDisk auto-mount services..."
+        
+        # Restart main service
+        launchctl stop "$SERVICE_NAME" 2>/dev/null
+        launchctl unload "$PLIST_FILE" 2>/dev/null
+        sleep 2
+        launchctl load "$PLIST_FILE" 2>/dev/null
+        launchctl start "$SERVICE_NAME" 2>/dev/null
+        
+        # Reload boot service
+        launchctl unload "$BOOT_PLIST_FILE" 2>/dev/null
+        launchctl load "$BOOT_PLIST_FILE" 2>/dev/null
+        
+        echo "✅ Services restarted"
+        ;;
+    *)
+        echo "CTExternalDisk Auto-Mount Setup (Enhanced)"
+        echo ""
+        echo "Usage: ctdisk-setup [command]"
+        echo ""
+        echo "Commands:"
+        echo "  enable      Enable auto-mount services"
+        echo "  disable     Disable auto-mount services"
+        echo "  restart     Restart auto-mount services"
+        echo "  status      Show service status"
+        echo "  logs        Show service logs"
+        echo "  test        Test the main mount script"
+        echo "  test-boot   Test the boot-time mount script"
+        echo ""
+        echo "Enhanced Features:"
+        echo "  ✅ Hibernation/wake detection and handling"
+        echo "  ✅ Boot-time immediate mounting"
+        echo "  ✅ Dynamic device node detection"
+        echo "  ✅ Retry logic with multiple mount methods"
+        echo "  ✅ Automatic symbolic link verification/repair"
+        echo "  ✅ System state detection"
+        echo ""
+        echo "Quick start:"
+        echo "  ctdisk-setup enable   # Enable enhanced auto-mounting"
+        echo "  ctdisk status         # Check disk status"
+        ;;
+esac

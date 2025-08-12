@@ -1,0 +1,78 @@
+#!/bin/bash
+
+# CTExternalDisk Management Script
+# Usage: ctdisk [mount|unmount|status|check]
+
+DISK_UUID="3E314969-A8AD-49EA-8743-F773357E61AB"
+DEVICE_NODE="/dev/disk7s1"
+MOUNT_POINT="/Volumes/CTExternalDisk"
+
+case "$1" in
+    mount|m)
+        echo "Mounting CTExternalDisk..."
+        if mount | grep -q "$MOUNT_POINT"; then
+            echo "✅ CTExternalDisk is already mounted"
+        else
+            # Create mount point if needed
+            sudo mkdir -p "$MOUNT_POINT" 2>/dev/null
+            
+            # Try the recommended mount method
+            if sudo mount -t apfs "$DEVICE_NODE" "$MOUNT_POINT" 2>/dev/null; then
+                echo "✅ Successfully mounted CTExternalDisk"
+            elif sudo diskutil mount "$DEVICE_NODE" 2>/dev/null; then
+                echo "✅ Successfully mounted CTExternalDisk (using diskutil)"
+            else
+                echo "❌ Failed to mount CTExternalDisk"
+                echo "💡 Make sure the disk is connected and try: diskutil list"
+                exit 1
+            fi
+        fi
+        ;;
+    unmount|eject|u)
+        echo "Ejecting CTExternalDisk..."
+        if diskutil eject "$MOUNT_POINT" 2>/dev/null; then
+            echo "✅ Successfully ejected CTExternalDisk"
+        else
+            echo "❌ Failed to eject CTExternalDisk (may not be mounted)"
+        fi
+        ;;
+    status|s)
+        echo "CTExternalDisk Status:"
+        if mount | grep -q "$MOUNT_POINT"; then
+            echo "✅ Mounted at: $MOUNT_POINT"
+            df -h "$MOUNT_POINT" | tail -1 | awk '{print "💾 Space: " $4 " available (" $5 " used)"}'
+        else
+            echo "❌ Not mounted"
+        fi
+        
+        if [ -e "$DEVICE_NODE" ]; then
+            echo "🔌 Device detected: $DEVICE_NODE"
+        else
+            echo "🔌 Device not detected"
+        fi
+        ;;
+    check|c)
+        echo "Checking CTExternalDisk health..."
+        if [ -e "$DEVICE_NODE" ]; then
+            diskutil verifyVolume "$DEVICE_NODE"
+        else
+            echo "❌ Device not found"
+        fi
+        ;;
+    *)
+        echo "CTExternalDisk Management Tool"
+        echo ""
+        echo "Usage: ctdisk [command]"
+        echo ""
+        echo "Commands:"
+        echo "  mount, m      Mount the disk"
+        echo "  unmount, u    Unmount/eject the disk"
+        echo "  status, s     Show disk status"
+        echo "  check, c      Check disk health"
+        echo ""
+        echo "Examples:"
+        echo "  ctdisk mount    # Mount the disk"
+        echo "  ctdisk status   # Check if mounted"
+        echo "  ctdisk unmount  # Safely eject"
+        ;;
+esac
