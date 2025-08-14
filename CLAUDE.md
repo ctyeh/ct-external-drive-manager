@@ -73,7 +73,8 @@ ctdisk-hibernation-safe test-wake
 
 - `bin/ctdisk`: Main user interface for manual operations
 - `bin/ctdisk-setup`: System configuration and LaunchAgent management
-- `bin/mount-ctexternaldisk-hibernation-safe.sh`: Core mounting logic with hibernation detection
+- `bin/mount-ctexternaldisk-hibernation-safe.sh`: Core mounting logic with auto-detection and hibernation support
+- `bin/mount-ctexternaldisk-hibernation-safe-v3.sh`: Latest version with self-healing and enhanced auto-detection
 - `bin/ctdisk-hibernation-safe`: Management interface for hibernation features
 - `bin/fix-ctdisk-ownership.sh`: Repairs ownership and permissions
 

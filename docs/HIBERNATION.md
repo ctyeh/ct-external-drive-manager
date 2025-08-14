@@ -22,6 +22,7 @@ The hibernation-safe system provides:
    - Triggers recovery after wake-up
 
 2. **Hibernation-Safe Mount Script**: `mount-ctexternaldisk-hibernation-safe.sh`
+   - Auto-detects external drive device node
    - Detects hibernation recovery scenarios
    - Uses triple mount backup methods
    - Repairs ownership and symlinks
@@ -40,6 +41,15 @@ System Wake → Hibernation Detection → Enhanced Mount → Ownership Fix → S
 ```
 
 ## Features
+
+### 🔍 Automatic Device Detection
+
+The system automatically detects and locates your external drive:
+
+- **UUID-based Detection**: Identifies drive by unique identifier
+- **Name-based Fallback**: Searches for "CTExternalDisk" volume
+- **Dynamic Device Node Discovery**: Handles device node changes (e.g., disk7s1 → disk8s1)
+- **No Manual Configuration**: Works without command-line arguments
 
 ### 🛡️ Hibernation Recovery Detection
 

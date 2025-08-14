@@ -11,6 +11,11 @@ LAST_MOUNT_FILE="$HOME/.local/tmp/ctdisk-last-mount-time"
 FAILURE_COUNT_FILE="$HOME/.local/tmp/ctdisk-failure-count"
 SERVICE_STATE_FILE="$HOME/.local/tmp/ctdisk-service-state"
 
+# Device configuration
+DISK_UUID="3E314969-A8AD-49EA-8743-F773357E61AB"
+DEFAULT_DEVICE_NODE="/dev/disk7s1"
+MOUNT_POINT="/Volumes/CTExternalDisk"
+
 # Self-healing configuration
 MAX_CONSECUTIVE_FAILURES=3
 FAILURE_RESET_TIME=300  # 5 minutes
@@ -262,6 +267,53 @@ fix_mount_ownership() {
     fi
 }
 
+# Function to find the correct device node (in case it changes after hibernation)
+find_device_node() {
+    # Try the known device node first
+    if [ -e "$DEFAULT_DEVICE_NODE" ]; then
+        echo "$DEFAULT_DEVICE_NODE"
+        return 0
+    fi
+    
+    # Search for the device by UUID
+    local device=$(diskutil info "$DISK_UUID" 2>/dev/null | grep "Device Node" | awk '{print $3}')
+    if [ -n "$device" ] && [ -e "$device" ]; then
+        echo "$device"
+        return 0
+    fi
+    
+    # Search by name in diskutil list
+    local device=$(diskutil list | grep -B 10 "CTExternalDisk" | grep "^/dev/" | tail -1 | awk '{print $1}')
+    if [ -n "$device" ] && [ -e "$device" ]; then
+        # Get the s1 partition (APFS volume)
+        if [[ "$device" =~ ^/dev/disk[0-9]+$ ]]; then
+            device="${device}s1"
+        fi
+        if [ -e "$device" ]; then
+            echo "$device"
+            return 0
+        fi
+    fi
+    
+    return 1
+}
+
+# Function to check if device exists
+device_exists() {
+    # Check multiple ways to detect the device
+    [ -e "$DEFAULT_DEVICE_NODE" ] && return 0
+    diskutil list | grep -q "$DISK_UUID" && return 0
+    diskutil list | grep -q "CTExternalDisk" && return 0
+    
+    # Wait a moment and try again (for post-hibernation detection)
+    sleep 2
+    [ -e "$DEFAULT_DEVICE_NODE" ] && return 0
+    diskutil list | grep -q "$DISK_UUID" && return 0
+    diskutil list | grep -q "CTExternalDisk" && return 0
+    
+    return 1
+}
+
 # Enhanced hibernation detection with self-healing awareness
 detect_hibernation_recovery() {
     local current_time=$(date +%s)
@@ -290,11 +342,25 @@ detect_hibernation_recovery() {
 main() {
     local device_node="$1"
     
-    # Validate input
+    # If no device node provided, try to auto-detect
     if [ -z "$device_node" ]; then
-        log_message "❌ No device node provided"
-        increment_failure_count
-        exit 1
+        log_message "No device node provided, attempting auto-detection..."
+        
+        # Check if device exists
+        if ! device_exists; then
+            log_message "Device not detected, skipping mount attempt"
+            exit 0
+        fi
+        
+        # Find the actual device node
+        device_node=$(find_device_node)
+        if [ -z "$device_node" ]; then
+            log_message "❌ Could not determine device node"
+            increment_failure_count
+            exit 1
+        fi
+        
+        log_message "✅ Auto-detected device node: $device_node"
     fi
     
     # Check for lock file to prevent concurrent executions

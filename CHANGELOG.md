@@ -13,6 +13,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Test framework
 - Installation script
 
+## [2.1.0] - 2025-08-14
+
+### Added
+- **Automatic Device Detection**: Mount script now auto-detects external drive without requiring device node argument
+- **Self-Healing Features**: Automatic service recovery from failure states
+- **Enhanced Mount Detection**: Triple verification methods for mount state
+- **CLAUDE.md**: Added Claude Code guidance documentation
+
+### Fixed
+- **LaunchAgent Arguments**: Fixed mount script failure due to missing device node argument
+- **Reconnection Issue**: Resolved auto-mount failure when unplugging and re-plugging external drive
+- **Service Health**: Added failure count tracking and automatic reset on success
+
 ## [2.0.0] - 2025-08-12
 
 ### Added
